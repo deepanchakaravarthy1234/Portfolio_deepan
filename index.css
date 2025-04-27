@@ -516,10 +516,9 @@ img {
   }
   .home__social{
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-
-
   }
   .skill_logo{
     position: relative;
