@@ -1,207 +1,644 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deepan Chakaravarthy | Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #667eea;
+      --secondary: #764ba2;
+      --accent: #f093fb;
+      --dark: #0a0a0f;
+      --dark2: #111118;
+      --card: #16161f;
+      --card2: #1c1c28;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --border: rgba(102,126,234,0.2);
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; background: var(--dark); color: var(--text); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
-        <link rel="stylesheet" href="index.css">
+    nav { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 5%; display: flex; align-items: center; justify-content: space-between; height: 70px; transition: all 0.3s; }
+    nav.scrolled { background: rgba(10,10,15,0.97); }
+    .nav-logo { font-size: 1.5rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 500; transition: color 0.3s; position: relative; padding-bottom: 4px; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient); transition: width 0.3s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover::after { width: 100%; }
+    .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .hamburger span { width: 25px; height: 2px; background: var(--text); display: block; }
 
-        <!-- =====BOX ICONS===== -->
-        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-         <title>Portfolio website</title>
-    </head>
-    <body>
-        <!--===== HEADER =====-->
-        <header class="l-header">
-            <nav class="nav bd-grid">
-                <div>
-                    <a href="#" class="nav__logo">DEEPAN</a>
-                </div>
+    #home { min-height: 100vh; display: flex; align-items: center; padding: 120px 5% 80px; position: relative; overflow: hidden; }
+    #home::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at 30% 40%, rgba(102,126,234,0.12) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, rgba(240,147,251,0.08) 0%, transparent 60%); pointer-events: none; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-text .greeting { font-size: 0.95rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; }
+    .hero-text h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .hero-text h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .typewriter-wrap { font-size: 1.05rem; color: var(--muted); margin-bottom: 1.5rem; min-height: 28px; }
+    .typewriter { border-right: 2px solid var(--primary); padding-right: 4px; animation: blink 0.7s step-end infinite; }
+    @keyframes blink { 50% { border-color: transparent; } }
+    .hero-desc { color: var(--muted); font-size: 0.93rem; line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
+    .stats-row { display: flex; gap: 2rem; margin-bottom: 2.5rem; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { padding: 0.8rem 2rem; border-radius: 50px; font-weight: 600; font-size: 0.88rem; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none; font-family: 'Poppins', sans-serif; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-primary { background: var(--gradient); color: #fff; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(102,126,234,0.4); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); }
+    .hero-img-wrap { display: flex; justify-content: center; align-items: center; }
+    .hero-img-ring { width: 360px; height: 360px; border-radius: 50%; background: var(--gradient); padding: 4px; position: relative; animation: float 4s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
+    .hero-img-ring::before { content: ''; position: absolute; inset: -15px; border-radius: 50%; border: 1px dashed rgba(102,126,234,0.4); animation: spin 20s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg);} }
+    .hero-img-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; background: var(--card2); display: flex; align-items: center; justify-content: center; }
+    .hero-img-inner img { width: 100%; height: 100%; object-fit: cover; }
 
-                <div class="nav__menu" id="nav-menu">
-                    <ul class="nav__list">
-                        <li class="nav__item"><a href="#home" class="nav__link active-link">Home</a></li>
-                        <li class="nav__item"><a href="#about" class="nav__link">About</a></li>
-                        <li class="nav__item"><a href="#skills" class="nav__link">Skills</a></li>
-                        <li class="nav__item"><a href="#work" class="nav__link">Work</a></li>
-                        <li class="nav__item"><a href="#contact" class="nav__link">Contact</a></li>
-                    </ul>
-                </div>
+    section { padding: 100px 5%; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-tag { display: inline-block; padding: 0.3rem 1rem; border-radius: 50px; background: rgba(102,126,234,0.1); border: 1px solid var(--border); font-size: 0.78rem; color: var(--primary); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
+    .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 1rem; }
+    .section-title span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .section-sub { color: var(--muted); font-size: 0.95rem; line-height: 1.7; max-width: 600px; }
+    .divider { width: 60px; height: 4px; background: var(--gradient); border-radius: 2px; margin: 1rem 0 2rem; }
 
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class='bx bx-menu'></i>
-                </div>
-            </nav>
-        </header>
+    #about { background: var(--dark2); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; margin-top: 4rem; }
+    .about-img-frame { width: 100%; border-radius: 20px; background: var(--gradient); padding: 3px; position: relative; }
+    .about-img-frame::after { content: ''; position: absolute; bottom: -15px; right: -15px; width: 100%; height: 100%; border-radius: 20px; border: 1px solid var(--border); z-index: -1; }
+    .about-img-frame img { width: 100%; border-radius: 18px; display: block; }
+    .about-img-ph { width: 100%; height: 350px; border-radius: 18px; background: var(--card2); display: flex; align-items: center; justify-content: center; font-size: 6rem; color: rgba(255,255,255,0.1); }
+    .mini-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .mini-stat { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem; text-align: center; }
+    .mini-stat-num { font-size: 1.8rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .mini-stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+    .about-text p { color: var(--muted); font-size: 0.93rem; line-height: 1.85; margin-bottom: 1.2rem; }
+    .about-badges { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 1.2rem 0; }
+    .badge { padding: 0.3rem 0.85rem; border-radius: 50px; background: rgba(102,126,234,0.1); border: 1px solid var(--border); font-size: 0.76rem; color: var(--primary); font-weight: 500; }
+    .skill-bars { margin-top: 1.5rem; }
+    .skill-bar-item { margin-bottom: 1rem; }
+    .skill-bar-top { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 0.83rem; font-weight: 500; }
+    .skill-track { height: 6px; background: var(--card2); border-radius: 3px; overflow: hidden; }
+    .skill-fill { height: 100%; border-radius: 3px; background: var(--gradient); width: 0; transition: width 1.5s ease; }
 
-        <main class="l-main">
-            <!--===== HOME =====-->
-            <section class="home" id="home">
-                <div class="home__data">
-                    <h1 class="home__title">Hi,<br>I'am <span class="home__title-color">Deepan </span><br><span  class="home__title-color" >Chakaravarthy </span> <br>Software developer</h1>
-                    <a href="#" class="button">Contact</a>
-                </div>
-                <div class="home__social">
-                    <a href="https://www.linkedin.com/in/deepan-chakaravarthy-p-389472261?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="home__social-icon"><i class='bx bxl-linkedin'></i></a>
-                    <a href="" class="home__social-icon"><i class='bx bxl-behance' ></i></a>
-                    <a href="" class="home__social-icon"><i class='bx bxl-github' ></i></a>
-                </div>
-                <div class="home__img">
-                    <img src="candid2.jpg" class="images"/>
-                    </svg>
-                </div>
-            </section>
+    #skills { background: var(--dark); }
+    .filter-row { display: flex; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .filter-btn { padding: 0.45rem 1.1rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; transition: all 0.3s; font-family: 'Poppins', sans-serif; }
+    .filter-btn.active, .filter-btn:hover { background: var(--gradient); color: #fff; border-color: transparent; }
+    .tech-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 1.1rem; }
+    .tech-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.4rem; transition: all 0.3s; text-align: center; }
+    .tech-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(102,126,234,0.15); }
+    .tech-icon { font-size: 2.5rem; margin-bottom: 0.8rem; display: flex; justify-content: center; align-items: center; height: 52px; }
+    .tech-icon img { width: 44px; height: 44px; object-fit: contain; }
+    .tech-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .tech-desc { font-size: 0.73rem; color: var(--muted); line-height: 1.5; }
+    .skills-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-top: 4rem; }
+    .skills-col-title { font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; }
+    .skills-col-title i { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .offers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .offer-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; }
+    .offer-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); opacity: 0; transition: opacity 0.3s; }
+    .offer-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(102,126,234,0.12); }
+    .offer-card:hover::before { opacity: 1; }
+    .offer-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem; }
+    .offer-title { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.7rem; }
+    .offer-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
 
-            <!--===== ABOUT =====-->
-            <section class="about" id="about">
-                <h2 class="section-title">About</h2>
+    #experience { background: var(--dark2); }
+    .exp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .exp-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 2rem; transition: all 0.3s; }
+    .exp-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(102,126,234,0.12); }
+    .exp-company { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+    .exp-logo { width: 48px; height: 48px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .exp-company-name { font-size: 1.05rem; font-weight: 700; }
+    .exp-duration { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .exp-role { display: inline-block; padding: 0.25rem 0.85rem; border-radius: 50px; background: rgba(102,126,234,0.1); border: 1px solid var(--border); font-size: 0.78rem; color: var(--primary); font-weight: 500; margin-bottom: 1rem; }
+    .exp-points { list-style: none; }
+    .exp-points li { font-size: 0.84rem; color: var(--muted); padding: 0.3rem 0 0.3rem 1.2rem; position: relative; line-height: 1.6; }
+    .exp-points li::before { content: '▸'; position: absolute; left: 0; color: var(--primary); }
 
-                <div class="about__container bd-grid">
-                    <div class="about__img">
-                        <img src="deepan2.jpg" alt="">
-                    </div>
-                    
-                    <div>
-                        <h2 class="about__subtitle">I'am Deepan</h2>
-                        <p class="about__text">Passionate and self-driven MERN Stack Web Developer with a strong foundation in full-stack JavaScript development, alongside certifications in Machine Learning with Python and Data Science. Skilled in building responsive and dynamic web applications using MongoDB, Express.js, React.js, and Node.js. Proficient in front-end technologies (HTML, CSS, JavaScript) and back-end development with RESTful APIs and MongoDB. Strong problem-solving abilities and an eagerness to integrate intelligent features using data science and machine learning concepts. Committed to continuous learning and delivering clean, efficient, and user-focused solutions as part of a collaborative development team.</p>           
-                    </div>                                   
-                </div>
-            </section>
+    #projects { background: var(--dark); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: all 0.3s; }
+    .project-card:hover { border-color: var(--primary); transform: translateY(-6px); box-shadow: 0 25px 60px rgba(102,126,234,0.15); }
+    .project-banner { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
+    .project-num { position: absolute; top: 0.8rem; right: 1rem; font-size: 3rem; font-weight: 900; color: rgba(255,255,255,0.07); font-family: 'Poppins', sans-serif; }
+    .project-body { padding: 1.5rem; }
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .project-tag { font-size: 0.69rem; padding: 0.2rem 0.6rem; border-radius: 50px; background: rgba(102,126,234,0.1); color: var(--primary); font-weight: 500; border: 1px solid var(--border); }
+    .project-title { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .project-desc { color: var(--muted); font-size: 0.83rem; line-height: 1.65; }
 
-            <!--===== SKILLS =====-->
-            <section class="skills" id="skills">
-                <h2 class="section-title">Skills</h2>
-                <div class="skills__container bd-grid">          
-                    <div>
-                        <h2 class="skills__subtitle">Profesional Skills</h2>
-                        <p class="skills__text"><h3>Frontend Development :</h3><br>Proficient in building responsive user interfaces using HTML5, CSS3, JavaScript, and React.js. Skilled in using modern UI libraries (e.g., Bootstrap, Tailwind css) and writing clean, maintainable code.<br>
-                        <h3>Backend Development :</h3><br> Experience developing RESTful APIs and server-side logic using Node.js and Express.js. Strong understanding of authentication (JWT), routing, and middleware integration.<br>
-                        <h3>Database Management :</h3><br>Comfortable working with MongoDB and Mongoose for schema design, data modeling, and CRUD operations. Basic knowledge of SQL for relational databases.<br>
-                        <h3>Programming Languages :</h3><br> Proficient in JavaScript, Python, and Java, with a solid grasp of object-oriented programming and algorithmic problem solving.<br></p>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-html5 skills__icon'></i>
-                                <span class="skills__name">HTML5</span>
-                            </div>
-                            <div class="skills__bar skills__html">
+    #education { background: var(--dark2); }
+    .edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 1.8rem; transition: all 0.3s; position: relative; overflow: hidden; }
+    .edu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); }
+    .edu-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(102,126,234,0.15); }
+    .edu-year { display: inline-block; padding: 0.2rem 0.75rem; border-radius: 50px; background: rgba(102,126,234,0.1); border: 1px solid var(--border); font-size: 0.76rem; color: var(--primary); font-weight: 600; margin-bottom: 1rem; }
+    .edu-degree { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .edu-school { font-size: 0.83rem; color: var(--muted); margin-bottom: 0.8rem; line-height: 1.5; }
+    .edu-score { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 600; color: var(--primary); }
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.2rem; margin-top: 2.5rem; }
+    .cert-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; display: flex; align-items: center; gap: 1.2rem; transition: all 0.3s; }
+    .cert-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+    .cert-icon { width: 50px; height: 50px; border-radius: 14px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .cert-name { font-size: 0.88rem; font-weight: 600; line-height: 1.5; }
+    .cert-badge { font-size: 0.72rem; color: var(--primary); margin-top: 3px; }
 
-                            </div>
-                            <div>
-                                <span class="skills__percentage">95%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-html5 skills__icon'></i>
-                                <span class="skills__name">HTML5</span>
-                            </div>
-                            <div class="skills__bar skills__html">
+    #journey { background: var(--dark); }
+    .timeline { position: relative; margin-top: 4rem; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--primary), var(--secondary), transparent); }
+    .timeline-item { position: relative; padding: 0 0 3rem 2.5rem; }
+    .timeline-dot { position: absolute; left: -2.3rem; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--gradient); border: 3px solid var(--dark); box-shadow: 0 0 12px rgba(102,126,234,0.5); }
+    .timeline-year { display: inline-block; padding: 0.2rem 0.8rem; border-radius: 50px; background: rgba(102,126,234,0.1); border: 1px solid var(--border); font-size: 0.78rem; color: var(--primary); font-weight: 600; margin-bottom: 0.8rem; }
+    .timeline-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .timeline-desc { color: var(--muted); font-size: 0.87rem; line-height: 1.7; }
 
-                            </div>
-                            <div>
-                                <span class="skills__percentage">%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-css3 skills__icon'></i>
-                                <span class="skills__name">CSS3</span>
-                            </div>
-                            <div class="skills__bar skills__css">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">85%</span>
-                            </div>
-                        </div>
-                        <div class="skills__data">
-                            <div class="skills__names">
-                                <i class='bx bxl-javascript skills__icon' ></i>
-                                <span class="skills__name">JAVASCRIPT</span>
-                            </div>
-                            <div class="skills__bar skills__js">
-                                
-                            </div>
-                            <div>
-                                <span class="skills__percentage">75%</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="skill_logo">
-                        <div class="logos">
-                            <img src="html-5.png" class="logo_images">
-                        </div>
-                        <div class="logos">
-                            <img src="css.png" class="logo_images">
-                        </div>       
-                        <div class="logos">
-                            <img src="js.png" class="logo_images">
-                        </div> 
-                        <div class="logos">
-                            <img src="bootstrap.png" class="logo_images">
-                        </div>   
-                        <div class="logos">
-                            <img src="react.png" class="logo_images">
-                        </div>  
-                        <div class="logos">
-                            <img src="programing.png" class="logo_images">
-                        </div>  
-                        <div class="logos">
-                            <img src="database-storage.png" class="logo_images">
-                        </div>  
-                        <div class="logos">
-                            <img src="github.png" class="logo_images">
-                        </div>  
-                    </div>
-                </div>
-            </section>
+    #contact { background: var(--dark2); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; margin-top: 4rem; align-items: start; }
+    .contact-info-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-info-card { display: flex; align-items: center; gap: 1rem; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.2rem; transition: all 0.3s; }
+    .contact-info-card:hover { border-color: var(--primary); }
+    .contact-info-card a { color: var(--text); text-decoration: none; font-size: 0.88rem; font-weight: 600; }
+    .contact-info-card a:hover { color: var(--primary); }
+    .ci-icon { width: 46px; height: 46px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .ci-label { font-size: 0.71rem; color: var(--muted); margin-bottom: 2px; }
+    .ci-val { font-size: 0.88rem; font-weight: 600; word-break: break-all; }
+    .social-row { display: flex; gap: 0.8rem; margin-top: 2rem; flex-wrap: wrap; }
+    .social-btn { width: 44px; height: 44px; border-radius: 12px; background: var(--card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--muted); font-size: 1rem; transition: all 0.3s; }
+    .social-btn:hover { background: var(--gradient); border-color: transparent; color: #fff; transform: translateY(-3px); }
+    .contact-form { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem; }
+    .contact-form h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+    .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--muted); }
+    .form-group input, .form-group textarea { background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; color: var(--text); font-family: 'Poppins', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.3s; resize: vertical; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+    .form-group textarea { min-height: 120px; }
+    .form-submit { width: 100%; padding: 0.9rem; border-radius: 10px; background: var(--gradient); color: #fff; font-weight: 700; font-size: 0.93rem; border: none; cursor: pointer; font-family: 'Poppins', sans-serif; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102,126,234,0.4); }
 
-            <!--===== WORK =====-->
-            <section class="work section" id="work">
-                <h2 class="section-title">Work <i class="bi bi-file-person"></i></h2>
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 3rem 5%; text-align: center; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-logo { font-size: 1.5rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; display: block; }
+    .footer-tagline { color: var(--muted); font-size: 0.86rem; margin-bottom: 1.5rem; }
+    .footer-social { display: flex; gap: 0.8rem; justify-content: center; margin-bottom: 2rem; }
+    .footer-copy { color: var(--muted); font-size: 0.78rem; }
 
-                <div class="work__container bd-grid">
-                    <span>
-                    As a recent graduate, I have completed internships and academic projects that have equipped me with practical knowledge in software development. During my academic tenure, I developed strong skills in [skills like teamwork, problem-solving, development], which I am eager to apply in a professional setting. I am enthusiastic, quick to learn, and committed to growing my expertise.
-                    </span>
-                    <div>
-                        <img src="" alt="deepan">
-                    </div>
-                </div>
-            </section>
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-            <!--===== CONTACT =====-->
-            <section class="contact section" id="contact">
-                <h2 class="section-title">Contact</h2>
+    @media (max-width: 900px) {
+      .hero-inner, .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .hero-img-wrap { order: -1; }
+      .hero-img-ring { width: 240px; height: 240px; }
+      .hero-desc { margin: 0 auto 2rem; }
+      .hero-btns, .stats-row { justify-content: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: var(--dark2); padding: 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
 
-                <div class="contact__container bd-grid">
-                    <form action="POST"  class="contact__form">
-                        <input type="text" placeholder="Name" class="contact__input">
-                        <input type="mail" placeholder="Email" class="contact__input">
-                        <textarea name="" id="" cols="0" rows="10" class="contact__input"></textarea>
-                        <input type="button" value="submit" class="contact__button button">
-                    </form>
-                </div>
-            </section>
-        </main>
+<nav id="navbar">
+  <a href="#home" class="nav-logo">Deepan</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
 
-        <!--===== FOOTER =====-->
-        <footer class="footer">
-            <p class="footer__title">DeepaN</p>
-            <div class="footer__social">
-                <a href="https://www.facebook.com/share/1ExCvPCBgx" class="footer__icon"><i class='bx bxl-facebook' ></i></a>
-                <a href="https://www.instagram.com/dee_pex_x.05?igsh=azVsMzY3Y3I4b2V5" class="footer__icon"><i class='bx bxl-instagram' ></i></a>
-                <a href="#" class="footer__icon"><i class='bx bxl-twitter' ></i></a>
-            </div>
-            <p class="footer__copy">&#169; Deepancode.</p>
-        </footer>
+<!-- HERO -->
+<section id="home">
+  <div class="hero-inner">
+    <div class="hero-text fade-in">
+      <p class="greeting">Welcome to my portfolio</p>
+      <h1>Hi, I'm <span>Deepan<br/>Chakaravarthy</span></h1>
+      <div class="typewriter-wrap">I'm a <span class="typewriter" id="typewriter"></span></div>
+      <p class="hero-desc">Motivated Full Stack Developer with expertise in MERN Stack and hands-on experience in Java (Spring Boot) and Python. Skilled in building scalable web applications with DevOps tools like Docker, Kubernetes, Jenkins, and AWS.</p>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num" data-count="4">0</div><div class="stat-label">Projects</div></div>
+        <div class="stat"><div class="stat-num" data-count="1">0</div><div class="stat-label">Yr Exp</div></div>
+        <div class="stat"><div class="stat-num" data-count="3">0</div><div class="stat-label">Certs</div></div>
+      </div>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary"><i class="fas fa-code"></i> View My Work</a>
+        <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-img-wrap fade-in">
+      <div class="hero-img-ring">
+        <div class="hero-img-inner">
+          <img src="https://deepanport.netlify.app/candid2.jpg" alt="Deepan Chakaravarthy" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-user style=font-size:8rem;color:rgba(255,255,255,0.1)></i>'"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="fade-in">
+        <div class="about-img-frame">
+          <img src="https://deepanport.netlify.app/deepan2.jpg" alt="Deepan" onerror="this.outerHTML='<div class=about-img-ph><i class=fas fa-user></i></div>'"/>
+        </div>
+      </div>
+      <div class="fade-in">
+        <span class="section-tag">About Me</span>
+        <h2 class="section-title">Hello! I'm <span>Deepan</span></h2>
+        <div class="divider"></div>
+        <div class="mini-stats">
+          <div class="mini-stat"><div class="mini-stat-num">4+</div><div class="mini-stat-label">Projects Done</div></div>
+          <div class="mini-stat"><div class="mini-stat-num">91%</div><div class="mini-stat-label">MCA Score</div></div>
+          <div class="mini-stat"><div class="mini-stat-num">3</div><div class="mini-stat-label">Certifications</div></div>
+          <div class="mini-stat"><div class="mini-stat-num">24/7</div><div class="mini-stat-label">Learning Mode</div></div>
+        </div>
+        <div class="about-text">
+          <p>I'm a Motivated Full Stack Developer with expertise in MERN Stack (MongoDB, Express.js, React, Node.js) and hands-on experience in Java Spring Boot and Python. Currently pursuing MCA at Dhanalakshmi Srinivasan University, Trichy with a score of 91.20%.</p>
+          <p>Skilled in building scalable web applications and working with modern DevOps tools like Docker, Kubernetes, Jenkins, and AWS. Proficient in Git and Linux with a strong focus on continuous learning and contributing to real-world projects.</p>
+        </div>
+        <div class="about-badges">
+          <span class="badge">Full Stack Dev</span>
+          <span class="badge">MERN Stack</span>
+          <span class="badge">Java Spring</span>
+          <span class="badge">DevOps</span>
+          <span class="badge">Machine Learning</span>
+          <span class="badge">Data Engineering</span>
+          <span class="badge">Linux</span>
+          <span class="badge">AWS</span>
+        </div>
+        <div class="skill-bars">
+          <div class="skill-bar-item"><div class="skill-bar-top"><span>MERN Stack</span><span>88%</span></div><div class="skill-track"><div class="skill-fill" data-width="88"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-top"><span>Java / Spring Boot</span><span>78%</span></div><div class="skill-track"><div class="skill-fill" data-width="78"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-top"><span>Python / ML</span><span>80%</span></div><div class="skill-track"><div class="skill-fill" data-width="80"></div></div></div>
+          <div class="skill-bar-item"><div class="skill-bar-top"><span>DevOps (Docker, K8s, AWS)</span><span>72%</span></div><div class="skill-track"><div class="skill-fill" data-width="72"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!--===== SCROLL REVEAL =====-->
-        <script src="https://unpkg.com/scrollreveal"></script>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="fade-in" style="text-align:center;margin-bottom:1rem;">
+      <span class="section-tag">Technologies</span>
+      <h2 class="section-title">Technologies &amp; <span>Skills</span></h2>
+      <p class="section-sub" style="margin:0 auto 2rem;">All the tools and technologies from my resume that I use to build great products</p>
+    </div>
+    <div class="filter-row fade-in">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="frontend">Frontend</button>
+      <button class="filter-btn" data-filter="backend">Backend</button>
+      <button class="filter-btn" data-filter="devops">DevOps &amp; Cloud</button>
+      <button class="filter-btn" data-filter="database">Database</button>
+      <button class="filter-btn" data-filter="tools">Tools &amp; OS</button>
+    </div>
+    <div class="tech-grid" id="techGrid">
+      <div class="tech-card fade-in" data-cat="frontend"><div class="tech-icon"><img src="https://deepanport.netlify.app/react.png" alt="React" onerror="this.outerHTML='<i class=fab fa-react style=color:#61dbfb;font-size:2.5rem></i>'"/></div><div class="tech-name">React.js</div><div class="tech-desc">JavaScript library for building modern UIs.</div></div>
+      <div class="tech-card fade-in" data-cat="frontend"><div class="tech-icon"><img src="https://deepanport.netlify.app/html-5.png" alt="HTML5" onerror="this.outerHTML='<i class=fab fa-html5 style=color:#e44d26;font-size:2.5rem></i>'"/></div><div class="tech-name">HTML5</div><div class="tech-desc">Markup language for structuring web content.</div></div>
+      <div class="tech-card fade-in" data-cat="frontend"><div class="tech-icon"><img src="https://deepanport.netlify.app/css.png" alt="CSS3" onerror="this.outerHTML='<i class=fab fa-css3-alt style=color:#264de4;font-size:2.5rem></i>'"/></div><div class="tech-name">CSS3</div><div class="tech-desc">Styling language for beautiful web designs.</div></div>
+      <div class="tech-card fade-in" data-cat="frontend"><div class="tech-icon"><img src="https://deepanport.netlify.app/js.png" alt="JavaScript" onerror="this.outerHTML='<i class=fab fa-js style=color:#f7df1e;font-size:2.5rem></i>'"/></div><div class="tech-name">JavaScript</div><div class="tech-desc">Programming language for interactive pages.</div></div>
+      <div class="tech-card fade-in" data-cat="frontend"><div class="tech-icon"><img src="https://deepanport.netlify.app/bootstrap.png" alt="Bootstrap" onerror="this.outerHTML='<i class=fab fa-bootstrap style=color:#7952b3;font-size:2.5rem></i>'"/></div><div class="tech-name">Bootstrap</div><div class="tech-desc">CSS framework for responsive design.</div></div>
+      <div class="tech-card fade-in" data-cat="backend"><div class="tech-icon"><i class="fab fa-node-js" style="color:#68a063;font-size:2.5rem"></i></div><div class="tech-name">Node.js</div><div class="tech-desc">JavaScript runtime for server-side development.</div></div>
+      <div class="tech-card fade-in" data-cat="backend"><div class="tech-icon"><i class="fas fa-server" style="color:#667eea;font-size:2.5rem"></i></div><div class="tech-name">Express.js</div><div class="tech-desc">Fast web framework for Node.js.</div></div>
+      <div class="tech-card fade-in" data-cat="backend"><div class="tech-icon"><img src="https://deepanport.netlify.app/programing.png" alt="Python" onerror="this.outerHTML='<i class=fab fa-python style=color:#3572a5;font-size:2.5rem></i>'"/></div><div class="tech-name">Python</div><div class="tech-desc">High-level language for ML and full-stack dev.</div></div>
+      <div class="tech-card fade-in" data-cat="backend"><div class="tech-icon"><i class="fab fa-java" style="color:#f89820;font-size:2.5rem"></i></div><div class="tech-name">Java / Spring Boot</div><div class="tech-desc">Enterprise-grade backend application framework.</div></div>
+      <div class="tech-card fade-in" data-cat="backend"><div class="tech-icon"><i class="fas fa-brain" style="color:#f093fb;font-size:2.5rem"></i></div><div class="tech-name">Machine Learning</div><div class="tech-desc">Building intelligent models and predictions.</div></div>
+      <div class="tech-card fade-in" data-cat="backend"><div class="tech-icon"><i class="fas fa-chart-bar" style="color:#667eea;font-size:2.5rem"></i></div><div class="tech-name">Data Engineering</div><div class="tech-desc">Data pipelines, analysis and transformation.</div></div>
+      <div class="tech-card fade-in" data-cat="devops"><div class="tech-icon"><i class="fab fa-docker" style="color:#2496ed;font-size:2.5rem"></i></div><div class="tech-name">Docker</div><div class="tech-desc">Containerization for app deployment.</div></div>
+      <div class="tech-card fade-in" data-cat="devops"><div class="tech-icon"><i class="fas fa-dharmachakra" style="color:#326ce5;font-size:2.5rem"></i></div><div class="tech-name">Kubernetes (K8s)</div><div class="tech-desc">Container orchestration at scale.</div></div>
+      <div class="tech-card fade-in" data-cat="devops"><div class="tech-icon"><i class="fab fa-aws" style="color:#ff9900;font-size:2.5rem"></i></div><div class="tech-name">AWS</div><div class="tech-desc">Amazon cloud for scalable infrastructure.</div></div>
+      <div class="tech-card fade-in" data-cat="devops"><div class="tech-icon"><i class="fas fa-cogs" style="color:#d24939;font-size:2.5rem"></i></div><div class="tech-name">Jenkins</div><div class="tech-desc">CI/CD automation and pipeline management.</div></div>
+      <div class="tech-card fade-in" data-cat="devops"><div class="tech-icon"><i class="fas fa-layer-group" style="color:#7b42bc;font-size:2.5rem"></i></div><div class="tech-name">Terraform</div><div class="tech-desc">Infrastructure as Code for cloud provisioning.</div></div>
+      <div class="tech-card fade-in" data-cat="database"><div class="tech-icon"><img src="https://deepanport.netlify.app/database-storage.png" alt="MongoDB" onerror="this.outerHTML='<i class=fas fa-database style=color:#47a248;font-size:2.5rem></i>'"/></div><div class="tech-name">MongoDB</div><div class="tech-desc">NoSQL database for modern applications.</div></div>
+      <div class="tech-card fade-in" data-cat="tools"><div class="tech-icon"><img src="https://deepanport.netlify.app/github.png" alt="GitHub" onerror="this.outerHTML='<i class=fab fa-github style=color:#fff;font-size:2.5rem></i>'"/></div><div class="tech-name">Git / GitHub</div><div class="tech-desc">Version control and collaborative development.</div></div>
+      <div class="tech-card fade-in" data-cat="tools"><div class="tech-icon"><i class="fab fa-linux" style="color:#fcc624;font-size:2.5rem"></i></div><div class="tech-name">Linux</div><div class="tech-desc">Open-source OS for servers and development.</div></div>
+    </div>
 
-        <!--===== MAIN JS =====-->
-        <script src="index.js"></script>
-    </body>
+    <div class="skills-cols fade-in">
+      <div>
+        <div class="skills-col-title"><i class="fas fa-laptop-code"></i> Frontend</div>
+        <div class="skill-bar-item"><div class="skill-bar-top"><span>React.js</span><span>88%</span></div><div class="skill-track"><div class="skill-fill" data-width="88"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-top"><span>JavaScript</span><span>85%</span></div><div class="skill-track"><div class="skill-fill" data-width="85"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-top"><span>HTML / CSS</span><span>90%</span></div><div class="skill-track"><div class="skill-fill" data-width="90"></div></div></div>
+      </div>
+      <div>
+        <div class="skills-col-title"><i class="fas fa-server"></i> Backend</div>
+        <div class="skill-bar-item"><div class="skill-bar-top"><span>Node.js / Express</span><span>85%</span></div><div class="skill-track"><div class="skill-fill" data-width="85"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-top"><span>Java / Spring Boot</span><span>75%</span></div><div class="skill-track"><div class="skill-fill" data-width="75"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-top"><span>Python / Flask</span><span>80%</span></div><div class="skill-track"><div class="skill-fill" data-width="80"></div></div></div>
+      </div>
+      <div>
+        <div class="skills-col-title"><i class="fas fa-cloud"></i> DevOps &amp; Cloud</div>
+        <div class="skill-bar-item"><div class="skill-bar-top"><span>Docker</span><span>75%</span></div><div class="skill-track"><div class="skill-fill" data-width="75"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-top"><span>AWS</span><span>70%</span></div><div class="skill-track"><div class="skill-fill" data-width="70"></div></div></div>
+        <div class="skill-bar-item"><div class="skill-bar-top"><span>Kubernetes / Jenkins</span><span>65%</span></div><div class="skill-track"><div class="skill-fill" data-width="65"></div></div></div>
+      </div>
+    </div>
+
+    <div style="margin-top:5rem;">
+      <h3 class="section-title fade-in">What I <span>Offer</span></h3>
+      <div class="offers-grid">
+        <div class="offer-card fade-in"><div class="offer-icon"><i class="fas fa-layer-group" style="color:#fff"></i></div><div class="offer-title">Full Stack Development</div><div class="offer-desc">Building complete MERN stack applications from React frontends to Node.js/Express backends with MongoDB, ensuring smooth data flow and excellent UX.</div></div>
+        <div class="offer-card fade-in"><div class="offer-icon"><i class="fab fa-java" style="color:#fff"></i></div><div class="offer-title">Java / Spring Boot</div><div class="offer-desc">Developing robust, enterprise-grade REST APIs and backend systems using Java and Spring Boot framework for scalable production applications.</div></div>
+        <div class="offer-card fade-in"><div class="offer-icon"><i class="fas fa-brain" style="color:#fff"></i></div><div class="offer-title">Machine Learning</div><div class="offer-desc">Integrating ML models into web apps using Python and Flask APIs. Specialized in health prediction systems with real-world medical datasets.</div></div>
+        <div class="offer-card fade-in"><div class="offer-icon"><i class="fab fa-docker" style="color:#fff"></i></div><div class="offer-title">DevOps &amp; Cloud</div><div class="offer-desc">Working with Docker, Kubernetes, Jenkins CI/CD, Terraform, and AWS to build scalable, automated cloud infrastructure and deployment pipelines.</div></div>
+        <div class="offer-card fade-in"><div class="offer-icon"><i class="fas fa-chart-bar" style="color:#fff"></i></div><div class="offer-title">Data Engineering</div><div class="offer-desc">Designing data pipelines, performing data analysis, and engineering features for machine learning and business intelligence solutions.</div></div>
+        <div class="offer-card fade-in"><div class="offer-icon"><i class="fas fa-users" style="color:#fff"></i></div><div class="offer-title">Team Collaboration</div><div class="offer-desc">Strong teamwork, communication, and adaptability skills. Experienced in collaborative development environments with an active listening approach.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="fade-in">
+      <span class="section-tag">Work Experience</span>
+      <h2 class="section-title">My <span>Experience</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card fade-in">
+        <div class="exp-company">
+          <div class="exp-logo"><i class="fas fa-code" style="color:#fff"></i></div>
+          <div><div class="exp-company-name">Tech Vaseeghara</div><div class="exp-duration">0 – 6 Months</div></div>
+        </div>
+        <div class="exp-role">Full Stack Developer (MERN)</div>
+        <ul class="exp-points">
+          <li>Worked on MERN stack development for real-world web applications</li>
+          <li>Built full stack web applications using MongoDB, Express.js, React.js and Node.js</li>
+          <li>Collaborated with team on frontend and backend integration tasks</li>
+          <li>Implemented RESTful APIs and user authentication systems</li>
+        </ul>
+      </div>
+      <div class="exp-card fade-in">
+        <div class="exp-company">
+          <div class="exp-logo"><i class="fab fa-python" style="color:#fff"></i></div>
+          <div><div class="exp-company-name">MindIT</div><div class="exp-duration">Apr 2025 – May 2025</div></div>
+        </div>
+        <div class="exp-role">Full Stack Intern (Python)</div>
+        <ul class="exp-points">
+          <li>Worked on Python full stack development during internship</li>
+          <li>Developed basic web applications using Python frameworks</li>
+          <li>Gained practical experience in backend development with Python</li>
+          <li>Contributed to team projects under professional mentorship</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="fade-in" style="text-align:center;">
+      <span class="section-tag">Portfolio</span>
+      <h2 class="section-title">My <span>Projects</span></h2>
+      <p class="section-sub" style="margin:0 auto;">Real-world projects built during academic and professional journey</p>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card fade-in">
+        <div class="project-banner" style="background:linear-gradient(135deg,#1a2a4a,#2d4a7a);">
+          <span class="project-num">01</span>
+          <i class="fas fa-tint" style="color:#60a5fa"></i>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="project-tag">MongoDB</span><span class="project-tag">Express.js</span><span class="project-tag">React.js</span><span class="project-tag">Node.js</span></div>
+          <div class="project-title">Milk Society Management System</div>
+          <div class="project-desc">A web-based application to manage milk collection center activities — member management, milk records, payments, and report generation. UG final year project using MERN Stack.</div>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <div class="project-banner" style="background:linear-gradient(135deg,#1a3a2a,#2d6a4a);">
+          <span class="project-num">02</span>
+          <i class="fas fa-trophy" style="color:#34d399"></i>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="project-tag">MongoDB</span><span class="project-tag">Express.js</span><span class="project-tag">React.js</span><span class="project-tag">Node.js</span></div>
+          <div class="project-title">Sports Event Management System</div>
+          <div class="project-desc">A web application to manage sports events including event creation, user registration, and scheduling. Developed as PG project using MERN Stack with a dynamic admin dashboard.</div>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <div class="project-banner" style="background:linear-gradient(135deg,#2a1a3a,#4a2d6a);">
+          <span class="project-num">03</span>
+          <i class="fas fa-heartbeat" style="color:#c084fc"></i>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="project-tag">MERN Stack</span><span class="project-tag">Python</span><span class="project-tag">ML Model</span><span class="project-tag">Flask API</span></div>
+          <div class="project-title">Diabetes Prediction System</div>
+          <div class="project-desc">A machine learning-based web application that predicts diabetes using user health data, integrated with a MERN-based frontend. ML model served via Flask REST API.</div>
+        </div>
+      </div>
+      <div class="project-card fade-in">
+        <div class="project-banner" style="background:linear-gradient(135deg,#3a1a1a,#6a2d2d);">
+          <span class="project-num">04</span>
+          <i class="fas fa-heart" style="color:#f87171"></i>
+        </div>
+        <div class="project-body">
+          <div class="project-tags"><span class="project-tag">MERN Stack</span><span class="project-tag">Python</span><span class="project-tag">ML Model</span><span class="project-tag">Flask API</span></div>
+          <div class="project-title">Heart Disease Prediction System</div>
+          <div class="project-desc">A predictive web application that analyzes medical data to detect the likelihood of heart disease. Combines React frontend with a Python ML model served through Flask API.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="fade-in">
+      <span class="section-tag">Education</span>
+      <h2 class="section-title">Academic <span>Background</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card fade-in">
+        <div class="edu-year">2024 – 2026</div>
+        <div class="edu-degree">MCA — Master of Computer Applications</div>
+        <div class="edu-school">Dhanalakshmi Srinivasan University, Trichy</div>
+        <div class="edu-score"><i class="fas fa-star" style="color:gold"></i>&nbsp;91.20%</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-year">Completed Apr 2024</div>
+        <div class="edu-degree">BCA — Bachelor of Computer Applications</div>
+        <div class="edu-school">Jamal Mohamed College, Trichy – 620 020</div>
+        <div class="edu-score"><i class="fas fa-star" style="color:gold"></i>&nbsp;79.40%</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-year">Completed Mar 2021</div>
+        <div class="edu-degree">12th Grade (Higher Secondary)</div>
+        <div class="edu-school">Lakshmi Matriculation Higher Secondary School, Manaparai, Trichy – 621 306</div>
+        <div class="edu-score"><i class="fas fa-star" style="color:gold"></i>&nbsp;75%</div>
+      </div>
+      <div class="edu-card fade-in">
+        <div class="edu-year">Completed Apr 2019</div>
+        <div class="edu-degree">10th Grade (SSLC)</div>
+        <div class="edu-school">St. Antony's Matriculation School, Thuvarankurichy, Trichy – 621 314</div>
+        <div class="edu-score"><i class="fas fa-star" style="color:gold"></i>&nbsp;67%</div>
+      </div>
+    </div>
+
+    <div style="margin-top:4rem;">
+      <h3 class="section-title fade-in">My <span>Certifications</span></h3>
+      <div class="cert-grid">
+        <div class="cert-card fade-in"><div class="cert-icon"><i class="fas fa-certificate" style="color:#fff"></i></div><div><div class="cert-name">Python in Machine Learning</div><div class="cert-badge">Certificate Earned</div></div></div>
+        <div class="cert-card fade-in"><div class="cert-icon"><i class="fab fa-java" style="color:#fff"></i></div><div><div class="cert-name">NPTEL Certification in Java Programming</div><div class="cert-badge">NPTEL · National Certification</div></div></div>
+        <div class="cert-card fade-in"><div class="cert-icon"><i class="fab fa-python" style="color:#fff"></i></div><div><div class="cert-name">Programming in Python</div><div class="cert-badge">Udemy · Completed Course</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="section-inner">
+    <div class="fade-in">
+      <span class="section-tag">Timeline</span>
+      <h2 class="section-title">My <span>Journey</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item fade-in"><div class="timeline-dot"></div><div class="timeline-year">2019</div><div class="timeline-title">Completed 10th Grade</div><div class="timeline-desc">Completed schooling at St. Antony's Matriculation School, Thuvarankurichy with 67%. Discovered my interest in computers and technology during this period.</div></div>
+      <div class="timeline-item fade-in"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-title">Completed 12th Grade</div><div class="timeline-desc">Completed higher secondary at Lakshmi Matriculation Higher Secondary School, Manaparai with 75%. Decided to pursue a degree in Computer Applications.</div></div>
+      <div class="timeline-item fade-in"><div class="timeline-dot"></div><div class="timeline-year">2021 – 2024</div><div class="timeline-title">BCA at Jamal Mohamed College</div><div class="timeline-desc">Pursued Bachelor of Computer Applications at Jamal Mohamed College, Trichy, graduating with 79.40%. Built foundational skills in programming, web development, databases and data structures.</div></div>
+      <div class="timeline-item fade-in"><div class="timeline-dot"></div><div class="timeline-year">2024</div><div class="timeline-title">MCA + Full Stack Dev at Tech Vaseeghara</div><div class="timeline-desc">Started MCA at Dhanalakshmi Srinivasan University (current: 91.20%). Simultaneously worked as a MERN Stack Developer at Tech Vaseeghara, building real-world full-stack web applications.</div></div>
+      <div class="timeline-item fade-in"><div class="timeline-dot"></div><div class="timeline-year">Apr – May 2025</div><div class="timeline-title">Python Full Stack Intern at MindIT</div><div class="timeline-desc">Completed a Python full stack development internship at MindIT. Gained professional hands-on experience building web applications with Python and working in a team environment.</div></div>
+      <div class="timeline-item fade-in"><div class="timeline-dot"></div><div class="timeline-year">Now</div><div class="timeline-title">Growing Full Stack Developer</div><div class="timeline-desc">Continuing MCA studies while expanding skills in DevOps (Docker, Kubernetes, AWS, Jenkins, Terraform), Machine Learning, and Data Engineering. Seeking new opportunities to apply and grow expertise.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="fade-in" style="text-align:center;">
+      <span class="section-tag">Contact</span>
+      <h2 class="section-title">Get In <span>Touch</span></h2>
+      <p class="section-sub" style="margin:0 auto;">Have a project in mind or want to collaborate? I'd love to hear from you.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="fade-in">
+        <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:1.5rem;">Contact Info</h3>
+        <div class="contact-info-cards">
+          <div class="contact-info-card"><div class="ci-icon"><i class="fas fa-envelope" style="color:#fff"></i></div><div><div class="ci-label">Email</div><div class="ci-val"><a href="mailto:deepand646@gmail.com">deepand646@gmail.com</a></div></div></div>
+          <div class="contact-info-card"><div class="ci-icon"><i class="fas fa-phone" style="color:#fff"></i></div><div><div class="ci-label">Phone</div><div class="ci-val"><a href="tel:+919345667622">+91 93456 67622</a></div></div></div>
+          <div class="contact-info-card"><div class="ci-icon"><i class="fas fa-map-marker-alt" style="color:#fff"></i></div><div><div class="ci-label">Location</div><div class="ci-val">Trichy – 621 314, Tamil Nadu, India</div></div></div>
+          <div class="contact-info-card"><div class="ci-icon"><i class="fas fa-language" style="color:#fff"></i></div><div><div class="ci-label">Languages</div><div class="ci-val">Tamil (Full Proficiency) · English (Proficient)</div></div></div>
+        </div>
+        <div class="social-row">
+          <a href="https://www.linkedin.com/in/deepan-chakaravarthy-p-389472261" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://deepanport.netlify.app/" target="_blank" class="social-btn" title="Portfolio"><i class="fas fa-globe"></i></a>
+          <a href="https://www.facebook.com/share/1ExCvPCBgx" target="_blank" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/dee_pex_x.05" target="_blank" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:deepand646@gmail.com" class="social-btn" title="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="contact-form fade-in">
+        <h3>Send a Message</h3>
+        <div class="form-row">
+          <div class="form-group"><label>Name</label><input type="text" placeholder="Your Name" /></div>
+          <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com" /></div>
+        </div>
+        <div class="form-group"><label>Subject</label><input type="text" placeholder="Project Enquiry" /></div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell me about your project or idea..."></textarea></div>
+        <button class="form-submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">Deepan</span>
+    <p class="footer-tagline">Full Stack Developer · MERN Stack · Java Spring · DevOps · Machine Learning · Trichy, India</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/deepan-chakaravarthy-p-389472261" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="https://deepanport.netlify.app/" target="_blank" class="social-btn"><i class="fas fa-globe"></i></a>
+      <a href="https://www.facebook.com/share/1ExCvPCBgx" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/dee_pex_x.05" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+      <a href="mailto:deepand646@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+    </div>
+    <p class="footer-copy">© 2025 Deepan Chakaravarthy. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50); });
+  document.getElementById('hamburger').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('open'); });
+  document.querySelectorAll('.nav-links a').forEach(a => { a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')); });
+
+  const phrases = ['Full Stack Developer', 'MERN Stack Developer', 'Java Spring Developer', 'ML Enthusiast', 'DevOps Learner', 'Problem Solver'];
+  let pi = 0, ci = 0, deleting = false;
+  const tw = document.getElementById('typewriter');
+  function type() {
+    const p = phrases[pi];
+    tw.textContent = deleting ? p.slice(0, ci--) : p.slice(0, ci++);
+    if (!deleting && ci > p.length) { deleting = true; setTimeout(type, 1500); return; }
+    if (deleting && ci < 0) { deleting = false; pi = (pi + 1) % phrases.length; ci = 0; }
+    setTimeout(type, deleting ? 55 : 95);
+  }
+  type();
+
+  let countersRan = false;
+  function animateCounters() {
+    if (countersRan) return; countersRan = true;
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const t = +el.dataset.count; let c = 0;
+      const id = setInterval(() => { c = Math.min(c + 1, t); el.textContent = c + '+'; if (c >= t) clearInterval(id); }, 60);
+    });
+  }
+
+  let barsRan = false;
+  function fillBars() {
+    if (barsRan) return; barsRan = true;
+    document.querySelectorAll('.skill-fill').forEach(b => { b.style.width = b.dataset.width + '%'; });
+  }
+
+  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  new IntersectionObserver(e => { if (e[0].isIntersecting) animateCounters(); }, { threshold: 0.3 }).observe(document.getElementById('home'));
+  new IntersectionObserver(e => { if (e[0].isIntersecting) fillBars(); }, { threshold: 0.1 }).observe(document.getElementById('about'));
+  new IntersectionObserver(e => { if (e[0].isIntersecting) fillBars(); }, { threshold: 0.1 }).observe(document.getElementById('skills'));
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.tech-card').forEach(c => { c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none'; });
+    });
+  });
+</script>
+</body>
 </html>
